@@ -20,7 +20,7 @@ jobs:
           name: Build Docker image
           command: |
             # Build a Docker image from the Dockerfile in your repository
-            docker build -t your-dockerhub-username/your-image-name:${CIRCLE_SHA1} .
+            docker build -t ahmedali432/springboot .
       
   push_docker_image:
     docker:
@@ -36,11 +36,10 @@ jobs:
           name: Push Docker image
           command: |
             # Tag the Docker image with the CircleCI SHA for uniqueness
-            docker tag your-dockerhub-username/your-image-name:${CIRCLE_SHA1} your-dockerhub-username/your-image-name:latest
+            docker tag ahmedali432/springboot ahmedali432/springboot:latest
             
             # Push the Docker image with both SHA and "latest" tags to Docker Hub
-            docker push your-dockerhub-username/your-image-name:${CIRCLE_SHA1}
-            docker push your-dockerhub-username/your-image-name:latest
+            docker push ahmedali432/springboot:latest
 
 workflows:
   version: 2
@@ -50,3 +49,6 @@ workflows:
       - push_docker_image:
           requires:
             - build_docker_image
+          filters:
+            branches:
+              only: master   
