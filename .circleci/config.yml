@@ -38,10 +38,7 @@ jobs:
             echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
       - run:
           name: Push Docker image
-          command: |
-            # Tag the Docker image with the CircleCI SHA for uniqueness
-            docker tag ahmedali432/springboot ahmedali432/springboot:latest
-            
+          command: |            
             # Push the Docker image with both SHA and "latest" tags to Docker Hub
             docker push ahmedali432/springboot:latest
 
