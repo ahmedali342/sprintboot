@@ -6,7 +6,7 @@ executors:
       - image: cimg/openjdk:17.0.10
 
 jobs:
-  build_docker_image:
+  build_push_docker_image:
     executor: docker-executor
     steps:
       - checkout # Pulls the latest code from GitHub
@@ -32,13 +32,6 @@ jobs:
           name: Tag Docker image
           command: |
             docker tag ahmedali432/springboot:${CIRCLE_SHA1} ahmedali432/springboot:latest          
-      
-  push_docker_image:
-    docker:
-      - image: circleci/python:3.7 # This is needed to run the Docker commands
-    steps:
-      - setup_remote_docker:
-          version: docker23 # Ensures Docker is available on the machine
       - run:
           name: Docker login
           command: |
