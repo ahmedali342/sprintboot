@@ -24,7 +24,14 @@ jobs:
           name: Build Docker image
           command: |
             # Build a Docker image from the Dockerfile in your repository
-            docker build -t ahmedali432/springboot .
+            docker build -t ahmedali432/springboot:${CIRCLE_SHA1} .
+      - run:
+          name: List Docker images
+          command: docker images
+      - run:
+          name: Tag Docker image
+          command: |
+            docker tag ahmedali432/springboot:${CIRCLE_SHA1} ahmedali432/springboot:latest          
       
   push_docker_image:
     docker:
@@ -40,6 +47,7 @@ jobs:
           name: Push Docker image
           command: |            
             # Push the Docker image with both SHA and "latest" tags to Docker Hub
+            docker push ahmedali432/springboot:${CIRCLE_SHA1}
             docker push ahmedali432/springboot:latest
 
 workflows:
